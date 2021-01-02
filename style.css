@@ -131,3 +131,7 @@ canvas {
   color: #F2EDE4;
   font-family: 'Montserrat', sans-serif;
 }
+#canvas {
+  opacity:1;
+  transition: .3s;
+}

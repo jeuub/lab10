@@ -361,6 +361,7 @@ function firstPlayerWinsFunc() {
   motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
   document.getElementById("modal").style.opacity = "1";
   h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №1(X)!');
+  document.getElementById("canvas").style.opacity = "0.5";
 }
 // SecondPlayerWins
 function secondPlayerWinsFunc() {
@@ -369,10 +370,12 @@ function secondPlayerWinsFunc() {
   secondPlayerWins.textContent = `Второй игрок(O): ${player2}`;
   document.getElementById("modal").style.opacity = "1";
   h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №2(O)!');
+  document.getElementById("canvas").style.opacity = "0.5";
 }
 
 // Button New Round
 buttonNewRound.addEventListener('click', () => {
+  document.getElementById("canvas").style.opacity = "1";
   ctx.clearRect(0, 0, 320, 320);
   canvasCascade();
   board = [
@@ -386,6 +389,7 @@ buttonNewRound.addEventListener('click', () => {
 }) ;
 // Button Reset
 buttonReset.addEventListener('click', () => {
+  document.getElementById("canvas").style.opacity = "1";
   ctx.clearRect(0, 0, 320, 320);
   canvasCascade();
   board = [
