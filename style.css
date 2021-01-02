@@ -124,3 +124,8 @@ canvas {
   background-color: #BF533B;
   width: 40px; 
 }
+#result {
+  font-weight: 400px;
+  color: #F2EDE4;
+  font-family: 'Montserrat', sans-serif;
+}

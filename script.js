@@ -358,7 +358,7 @@ function firstPlayerWinsFunc() {
   firstPlayerWins.textContent = `Первый игрок(X): ${player1}`;
   motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
   document.getElementById("modal").style.opacity = "1";
-  h1result.innerText = ('😎В этой жестокой схватке победил игрок №1(X)!');
+  h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №1(X)!');
 }
 // SecondPlayerWins
 function secondPlayerWinsFunc() {
@@ -366,7 +366,7 @@ function secondPlayerWinsFunc() {
   count = 0;
   secondPlayerWins.textContent = `Второй игрок(O): ${player2}`;
   document.getElementById("modal").style.opacity = "1";
-  h1result.innerText = ('😎В этой жестокой схватке победил игрок №2(O)!');
+  h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №2(O)!');
 }
 
 // Button New Round
