@@ -119,12 +119,14 @@ canvas {
   transition: .3s;
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
 }
 #close {
   background-color: #BF533B;
   width: 40px; 
 }
 #result {
+  text-align: center;
   font-weight: 400px;
   color: #F2EDE4;
   font-family: 'Montserrat', sans-serif;

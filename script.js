@@ -132,7 +132,8 @@ function canvasClick(click) {
         }
         currentPlayer += 1;
       }else {
-        alert('Это поле уже занято, выберите путое поле!');
+        document.getElementById("modal").style.opacity = "1";
+        h1result.innerHTML = ('Это поле занято!');
       }
       ifWin();
     }
@@ -321,7 +322,8 @@ function draw() {
     }
   }
   if (count == 0) {
-    alert('Ничья! Нажмите кнопку "Новый раунд", чтобы продолжить играть, или "Сброс", чтобы начать новую игру');
+    document.getElementById("modal").style.opacity = "1";
+    h1result.innerHTML = ('НИЧЬЯ');
   }
   console.log(count);
   count = 0;
