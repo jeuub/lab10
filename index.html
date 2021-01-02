@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lab-10</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Tic-tac-toe</h1>
+    <p>Крестики-нолики — логическая игра между двумя противниками на квадратном поле 3 на 3 клетки или бо́льшего размера (вплоть до «бесконечного поля»). Один из игроков играет «крестиками», второй — «ноликами». В традиционной китайской игре (Гомоку) используются чёрные и белые камни.</p>
+  </header>
+  <section class="main">
+    <hr>
+    <h2>Score</h2>
+    <div class="score">
+      <div class="firstPlayer" id="firstPlayer">
+        Первый игрок(X): 0
+      </div>
+      <div class="secondPlayer" id="secondPlayer">
+        Второй игрок(O): 0
+      </div>
+    </div>
+    <p class="lead" id="motion">Ходит первый игрок - Х</p>
+  
+    <canvas id="canvas" width="320px" height="320px"></canvas>
+    <div class="btns">
+      <button id="new">Новый раунд</button>
+      <button id="reset">Сброс</button>
+    </div>
+  </section>
+  <script src="script.js"></script>
+</body>
+</html>
