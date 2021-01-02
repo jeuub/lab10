@@ -17,7 +17,6 @@ header h1{
 header p {
   text-align: center;
   width:50%;
-  max-width: 600px;
   transform: translateX(50%);
   font-family: 'Noto Serif', serif;
 }
@@ -95,4 +94,33 @@ button:focus {
   transition: .3s;
   transform: scale(1.1);
   font-size: 15px;
+}
+canvas {
+  margin:0 auto 10px auto;
+  width:330px;
+
+}
+
+.modal {
+  position: absolute;
+  width: 20%;
+  height: 100px;
+  background-color: #16558C;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 0 1% 0 1%;
+  transform: translateX(200%);
+  z-index: 2;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+  color: #F2EDE4;
+  opacity: 0;
+  transition: .3s;
+  display: flex;
+  flex-direction: row-reverse;
+}
+#close {
+  background-color: #BF533B;
+  width: 40px; 
 }

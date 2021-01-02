@@ -11,6 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div class="modal" id="modal">
+    <button id="close">X</button>
+    <h3 id="result"></h3>
+  </div>
   <header>
     <h1>Tic-tac-toe</h1>
     <p>Крестики-нолики — логическая игра между двумя противниками на квадратном поле 3 на 3 клетки или бо́льшего размера (вплоть до «бесконечного поля»). Один из игроков играет «крестиками», второй — «ноликами». В традиционной китайской игре (Гомоку) используются чёрные и белые камни.</p>
@@ -28,7 +32,7 @@
     </div>
     <p class="lead" id="motion">Ходит первый игрок - Х</p>
   
-    <canvas id="canvas" width="320px" height="320px"></canvas>
+    <canvas id="canvas" width="330px" height="330px"></canvas>
     <div class="btns">
       <button id="new">Новый раунд</button>
       <button id="reset">Сброс</button>
