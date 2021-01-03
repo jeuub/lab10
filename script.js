@@ -164,7 +164,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Horizontal First
-  }else if (board[0][0] == board[0][1] && board[0][2] == board[0][1]) {
+  }else if ((board[0][0] == board[0][1]) && (board[0][2] == board[0][1])) {
     if (board[0][0] == 'X') {
       if (winner == 'first') {
         player1 += 1;
@@ -185,7 +185,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Horizontal Second
-  }else if (board[1][0] == board[1][1] && board[1][2] == board[1][1]) {
+  }else if ((board[1][0] == board[1][1]) && (board[1][2] == board[1][1])) {
     if (board[1][0] == 'X') {
       if (winner == 'first') {
         player1 += 1;
@@ -206,7 +206,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Horizontal Third
-  }else if (board[2][0] == board[2][1] && board[2][2] == board[2][1]) {
+  }else if ((board[2][0] == board[2][1]) && (board[2][2] == board[2][1])) {
     if (board[2][0] == 'X') {
       if (winner == 'first') {
         player1 += 1;
@@ -227,7 +227,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Diagonal Second
-  }else if (board[0][2] == board[1][1] && board[2][0] == board[1][1]) {
+  }else if ((board[0][2] == board[1][1]) && (board[2][0] == board[1][1])) {
     if (board[0][2] == 'X') {
       if (winner == 'first') {
         player1 += 1;
@@ -248,7 +248,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Vertical First
-  }else if (board[0][0] == board[1][0] && board[2][0] == board[1][0]) {
+  }else if ((board[0][0] == board[1][0]) && (board[2][0] == board[1][0])) {
     if (board[0][0] == 'X') {
       if (winner == 'first') {
         player1 += 1;
@@ -269,8 +269,8 @@ function ifWin() {
       gameStopper = true;
     }
   // Vertical Second
-  }else if (board[0][1] == board[1][1] && board[2][1] == board[0][1]) {
-    if (board[0][1] == 'X') {
+  }else if ((board[0][1] == board[1][1]) && (board[2][1] == board[1][1])) {
+    if (board[1][1] == 'X') {
       if (winner == 'first') {
         player1 += 1;
         firstPlayerWinsFunc();
@@ -290,7 +290,7 @@ function ifWin() {
       gameStopper = true;
     }
   // Vertical Third
-  }else if (board[0][2] == board[1][2] && board[2][2] == board[1][2]) {
+  }else if ((board[0][2] == board[1][2]) && (board[2][2] == board[1][2])) {
     if (board[0][2] == 'X') {
       if (winner == 'first') {
         player1 += 1;
