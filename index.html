@@ -24,21 +24,24 @@
     <hr>
     <h2>Score</h2>
     <div class="score">
-      <div class="firstPlayer" id="firstPlayer">
-        Первый игрок(X): 0
+      <div class="firstPlayer">
+        Первый игрок(X): <span id="playerX"></span>
       </div>
-      <div class="secondPlayer" id="secondPlayer">
-        Второй игрок(O): 0
+      <div class="secondPlayer">
+        Второй игрок(O): <span id="playerO"></span>
       </div>
     </div>
-    <p class="lead" id="motion">Ходит первый игрок - Х</p>
+    <p class="turn">Сейчас ход игрока: <span id="whatPlayer">X</span></p>
   
-    <canvas id="canvas" width="330px" height="330px"></canvas>
+    <canvas id="canvas" width="600px" height="600px"></canvas>
     <div class="btns">
-      <button id="new">Новый раунд</button>
-      <button id="reset">Сброс</button>
+      <button id="newRound" class="btn">Новый раунд</button>
+      <button id="deleteAll" class="btn">Сброс</button>
     </div>
   </section>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="sweetalert2.min.css">
   <script src="script.js"></script>
 </body>
 </html>

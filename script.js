@@ -1,574 +1,373 @@
-let canv = document.getElementById('canvas');
-let ctx = canv.getContext('2d') ;
 
-const buttonNewRound = document.querySelector('#new');
-const buttonReset = document.querySelector('#reset');
-let firstPlayerWins = document.querySelector('#firstPlayer');
-let secondPlayerWins = document.querySelector('#secondPlayer');
-let motion = document.querySelector('#motion');
 
-let board = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-];
-let count = 0;
+let canvas = document.getElementById("canvas"),
+  ctx = canvas.getContext('2d');
+let playerXhtml = document.getElementById('playerX');
+let playerOhtml = document.getElementById('playerO');
+let whatPlayerHTML = document.getElementById('whatPlayer');
+let newRoundHTML = document.getElementById('newRound');
+let deleteAllHTML = document.getElementById('deleteAll');
+ctx.beginPath();
+ctx.lineWidth = 2;
+ctx.strokeStyle = 'black';
 
-function canvasCascade() {
-  // VerticalLine
-  ctx.fillStyle = "black";
-  ctx.fillRect(109, 0, 3, 330);
-  ctx.fillStyle = "black";
-  ctx.fillRect(219, 0, 3, 330);
-  // HorizontalLine
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 109, 330, 3);
-  ctx.fillStyle = "black";
-  ctx.fillRect(0, 219, 330, 3);
+// Draw lines of game
+function drawLines() {
+  // Horizontal lines
+  ctx.moveTo(0, 200);
+  ctx.lineTo(600, 200);
+  ctx.moveTo(0, 400);
+  ctx.lineTo(600, 400);
+
+
+  // Vertical lines
+  ctx.moveTo(200, 0);
+  ctx.lineTo(200, 600);
+  ctx.moveTo(400, 0);
+  ctx.lineTo(400, 600);
+
+  ctx.stroke();
 }
-canvasCascade();
+drawLines();
 
-canv.addEventListener('click', canvasClick);
-let clientX = 0;
-let clientY = 0;
-let player1 = 0;
-let player2 = 0;
-let gameStopper = false;
-let currentPlayer = 0;
-let winner = 'first' ;
-
-const playerFirstName = 'X';
-const playerSecondName = 'O';
-
-motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
-
-function canvasClick(click) {
-    clientX = click.offsetX;
-    clientY = click.offsetY;
-    playersMoveText();
-  
-    if (gameStopper == false) {
-      if (clientX < 109 && clientY < 109 && board[0][0] != 'X' && board[0][0] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printTopLeftX();
-          board[0][0] = 'X';
-        } else {
-          printTopLeftO();
-          board[0][0] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 219 && clientY < 109 && clientX > 110 && clientY > 0 && board[0][1] != 'X' && board[0][1] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          playersMoveText();
-          printTopCenterX();
-          board[0][1] = 'X';
-        } else {
-          playersMoveText();
-          printTopCenterO();
-          board[0][1] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 330 && clientY < 109 && clientX > 220 && clientY > 0 && board[0][2] != 'X' && board[0][2] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printTopRightX();
-          board[0][2] = 'X';
-        } else {
-          printTopRightO();
-          board[0][2] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 109 && clientY < 219 && clientX > 0 && clientY > 110 && board[1][0] != 'X' && board[1][0] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printCenterLeftX();
-          board[1][0] = 'X';
-        } else {
-          printCenterLeftO();
-          board[1][0] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 219 && clientY < 219 && clientX > 110 && clientY > 110 && board[1][1] != 'X' && board[1][1] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printCenterCenterX();
-          board[1][1] = 'X';
-        } else {
-          printCenterCenterO();
-          board[1][1] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 330 && clientY < 219 && clientX > 220 && clientY > 110 && board[1][2] != 'X' && board[1][2] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printCenterRightX();
-          board[1][2] = 'X';
-        } else {
-          printCenterRightO();
-          board[1][2] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 109 && clientY < 330 && clientX > 0 && clientY > 220 && board[2][0] != 'X' && board[2][0] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printBottomLeftX();
-          board[2][0] = 'X';
-        } else {
-          printBottomLeftO();
-          board[2][0] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 219 && clientY < 330 && clientX > 110 && clientY > 220 && board[2][1] != 'X' && board[2][1] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printBottomCenterX();
-          board[2][1] = 'X';
-        } else {
-          printBottomCenterO();
-          board[2][1] = 'O';
-        }
-        currentPlayer += 1;
-      }else if (clientX < 330 && clientY < 330 && clientX > 220 && clientY > 220 && board[2][2] != 'X' && board[2][2] != 'O') {
-        if (currentPlayer % 2 == 0) {
-          printBottomRightX();
-          board[2][2] = 'X';
-        } else {
-          printBottomRightO();
-          board[2][2] = 'O';
-        }
-        currentPlayer += 1;
-      }else {
-        document.getElementById("modal").style.opacity = "1";
-        h1result.innerHTML = ('Это поле занято!');
-      }
-      ifWin();
-    }
-
-    draw();
+// function that draws an X with coordinates in array
+function drawX(arr) {
+  ctx.beginPath();
+  ctx.moveTo(arr[0], arr[1]);
+  ctx.lineTo(arr[2], arr[3]);
+  ctx.moveTo(arr[4], arr[5]);
+  ctx.lineTo(arr[6], arr[7]);
+  ctx.stroke();
 }
-// If Win
-function ifWin() {
-  // Diagonal First
-  if (board[0][0] == board[1][1] && board[1][1] == board[2][2]) { 
-    if (board[0][0] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      }
-      gameStopper = true;
-    }else if (board[0][0] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
+// function that draws an O with coordinates in array
+function drawO(arr) {
+  ctx.beginPath();
+  ctx.arc(arr[0], arr[1], arr[2], arr[3], arr[4]);
+  ctx.stroke();
+}
+
+
+// turns
+// 0 - X, 1 - O
+let turn = 0;
+let cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let filledCells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+let playerX = 0;
+let playerO = 0;
+let isWin = false;
+
+playerXhtml.innerHTML = playerX;
+playerOhtml.innerHTML = playerO;
+
+// function that checks if the player has won
+function checkWin(c, turnStr) {
+  if (
+     (c[0] === turnStr && c[1] === turnStr && c[2] === turnStr) 
+  || (c[3] === turnStr && c[4] === turnStr && c[5] === turnStr) 
+  || (c[6] === turnStr && c[7] === turnStr && c[8] === turnStr)
+  || (c[0] === turnStr && c[4] === turnStr && c[8] === turnStr)
+  || (c[2] === turnStr && c[4] === turnStr && c[6] === turnStr) 
+  || (c[0] === turnStr && c[3] === turnStr && c[6] === turnStr)
+  || (c[1] === turnStr && c[4] === turnStr && c[7] === turnStr)
+  || (c[2] === turnStr && c[5] === turnStr && c[8] === turnStr) 
+  ) {
+    canvas.removeEventListener('click', game);
+    if (turnStr === 'x') {
+      playerX++;
+      playerXhtml.innerHTML = playerX;
+    } else {
+      playerO++;
+      playerOhtml.innerHTML = playerO;
     }
-  // Horizontal First
-  }else if ((board[0][0] == board[0][1]) && (board[0][2] == board[0][1])) {
-    if (board[0][0] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+    isWin = true;
+    Swal.fire({
+      title: 'Конец раунда',
+      text: `Игрок ${turnStr} выиграл. С победой!. `,
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    })
+  }
+  if ( c[0] && c[1] && c[2] && c[3] && c[4] && c[5] && c[6] && c[7] && c[8] ) {
+    canvas.removeEventListener('click', game);
+    isWin = true;
+    Swal.fire({
+      title: 'Конец раунда',
+      text: `Ничья!`,
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    })
+  }
+}
+
+// function that decides what player to turn
+function whatPlayer() {
+  if (turn === 0) {
+    whatPlayerHTML.innerHTML = 'X';
+  } else {
+    whatPlayerHTML.innerHTML = 'O';
+  }
+}
+
+// function that starts new round
+function newRound() {
+  ctx.beginPath();
+  ctx.stroke();
+  ctx.closePath();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawLines();
+  if (isWin) {
+    canvas.addEventListener('click', game);
+    isWin = false;
+  }
+  turn = 0;
+  whatPlayer();
+  cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  filledCells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+}
+
+// function that starts over the game
+function deleteAll() {
+  ctx.beginPath();
+  ctx.stroke();
+  ctx.closePath();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawLines();
+  if (isWin) {
+    canvas.addEventListener('click', game);
+    isWin = false;
+  }
+  turn = 0;
+  whatPlayer();
+  cells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  filledCells = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  playerX = 0;
+  playerO = 0;
+  playerXhtml.innerHTML = playerX;
+  playerOhtml.innerHTML = playerO;
+}
+
+// Add event listeners on buttons
+newRoundHTML.addEventListener('click', newRound);
+deleteAllHTML.addEventListener('click', deleteAll);
+
+
+function game(e) {
+  // First line
+  if (e.offsetY < 200) {
+    //First square
+    if (e.offsetX < 200) {
+      if (!cells[0]) {
+        if (turn === 0) {
+          drawX( [5, 5,
+                  195, 195,
+                  195, 5,
+                  5, 195] );
+          turn = 1;
+          filledCells[0] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [100, 100,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[0] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[0] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[0][0] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Horizontal Second
-  }else if ((board[1][0] == board[1][1]) && (board[1][2] == board[1][1])) {
-    if (board[1][0] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+    // Second square
+    else if ( e.offsetX < 400 ) {
+      if (!cells[1]) {
+        if (turn === 0) {
+          drawX( [200 + 5, 5,
+                  200 + 195, 195,
+                  200 + 195, 5,
+                  200 + 5, 195] );
+          turn = 1;
+          filledCells[1] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [300, 100,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[1] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[1] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[1][0] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Horizontal Third
-  }else if ((board[2][0] == board[2][1]) && (board[2][2] == board[2][1])) {
-    if (board[2][0] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+    // Third square
+    else if ( e.offsetX < 600 ) {
+      if (!cells[2]) {
+        if (turn === 0) {
+          drawX( [400 + 5, 5,
+                  400 + 195, 195,
+                  400 + 195, 5,
+                  400 + 5, 195] );
+          turn = 1;
+          filledCells[2] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [500, 100,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[2] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[2] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[2][0] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Diagonal Second
-  }else if ((board[0][2] == board[1][1]) && (board[2][0] == board[1][1])) {
-    if (board[0][2] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+  }
+  // Second line
+  else if (e.offsetY < 400) {
+    // Fourth square
+    if (e.offsetX < 200) {
+      if (!cells[3]) {
+        if (turn === 0) {
+          drawX( [5, 200 + 5,
+                  195, 200 + 195,
+                  195, 200 + 5,
+                  5, 200 + 195] );
+          turn = 1;
+          filledCells[3] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [100, 300,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[3] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[3] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[0][2] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Vertical First
-  }else if ((board[0][0] == board[1][0]) && (board[2][0] == board[1][0])) {
-    if (board[0][0] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+    // Fifth square
+    else if ( e.offsetX < 400 ) {
+      if (!cells[4]) {
+        if ( turn === 0) {
+          drawX( [200 + 5, 200 + 5,
+                  200 + 195, 200 + 195,
+                  200 + 195, 200 + 5,
+                  200 + 5, 200 + 195] );
+          turn = 1;
+          filledCells[4] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [300, 300,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[4] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[4] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[0][0] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Vertical Second
-  }else if ((board[0][1] == board[1][1]) && (board[2][1] == board[1][1])) {
-    if (board[1][1] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+    // Sixth square
+    else if ( e.offsetX < 600 ) {
+      if (!cells[5]) {
+        if ( turn === 0 ) {
+          drawX( [400 + 5, 200 + 5,
+                  400 + 195, 200 + 195,
+                  400 + 195, 200 + 5,
+                  400 + 5, 200 + 195] );
+          turn = 1;
+          filledCells[5] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [500, 300,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[5] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[5] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[0][1] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      }
-      gameStopper = true;
     }
-  // Vertical Third
-  }else if ((board[0][2] == board[1][2]) && (board[2][2] == board[1][2])) {
-    if (board[0][2] == 'X') {
-      if (winner == 'first') {
-        player1 += 1;
-        firstPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player2 += 1;
-        secondPlayerWinsFunc();
+  }
+  // Third line
+  else if (e.offsetY < 600) {
+    // Seventh square
+    if (e.offsetX < 200) {
+      if (!cells[6]) {
+        if ( turn === 0 ) {
+          drawX( [5, 400 + 5,
+                  195, 400 + 195,
+                  195, 400 + 5,
+                  5, 400 + 195] );
+          turn = 1;
+          filledCells[6] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [100, 500,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[6] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[6] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
-    } else if (board[0][2] == 'O') {
-      if (winner == 'first') {
-        player2 += 1;
-        secondPlayerWinsFunc();
-      } else if (winner == 'second') {
-        player1 += 1;
-        firstPlayerWinsFunc();
+    }
+    // Eighth square
+    else if ( e.offsetX < 400 ) {
+      if (!cells[7]) {
+        if ( turn === 0 ) {
+          drawX( [200 + 5, 400 + 5,
+                  200 + 195, 400 + 195,
+                  200 + 195, 400 + 5,
+                  200 + 5, 400 + 195] );
+          turn = 1;
+          filledCells[7] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [300, 500,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[7] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[7] = 1;
+        whatPlayer();
       }
-      gameStopper = true;
+    }
+    // Ninth square
+    else if ( e.offsetX < 600 ) {
+      if (!cells[8]) {
+        if ( turn === 0 ) {
+          drawX( [400 + 5, 400 + 5,
+                  400 + 195, 400 + 195,
+                  400 + 195, 400 + 5,
+                  400 + 5, 400 + 195] );
+          turn = 1;
+          filledCells[8] = 'x';
+          checkWin(filledCells, 'x');
+        } else {
+          drawO( [500, 500,
+                  95,
+                  0, 2*Math.PI] );
+          turn = 0;
+          filledCells[8] = 'o';
+          checkWin(filledCells, 'o');
+        }
+        cells[8] = 1;
+        whatPlayer();
+      }
     }
   }
 }
-// Draw
-function draw() {
-  for (let i = 0; i < 3; ++i) {
-    for (let j = 0; j < 3; ++j) {
-      if (board[i][j] == '') {
-        count += 1;
-      } 
-    }
-  }
-  if (count == 0) {
-    document.getElementById("modal").style.opacity = "1";
-    h1result.innerHTML = ('НИЧЬЯ');
-  }
-  console.log(count);
-  count = 0;
-}
 
-// Player's Move Text
-function playersMoveText() {
-  if (winner == 'first') {
-    if (currentPlayer % 2 == 1) {
-      motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
-    } else if (currentPlayer % 2 == 0) {
-      motion.textContent = `Ходит второй игрок - ${playerSecondName}`;
-    }
-  } else if (winner == 'second') {
-    if (currentPlayer % 2 == 0) {
-      motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
-    } else if (currentPlayer % 2 == 1) {
-      motion.textContent = `Ходит второй игрок - ${playerSecondName}`;
-    }
-  }
-}
-let close = document.getElementById('close');
-let h1result = document.getElementById('result');
-
-close.onclick = closeModal;
-function closeModal() {
-  document.getElementById("modal").style.opacity = "0";
-}
-
-// FirstPlayerWins
-function firstPlayerWinsFunc() {
-  winner = 'first';
-  count = 0;
-  firstPlayerWins.textContent = `Первый игрок(X): ${player1}`;
-  motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
-  document.getElementById("modal").style.opacity = "1";
-  h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №1(X)!');
-  document.getElementById("canvas").style.opacity = "0.5";
-}
-// SecondPlayerWins
-function secondPlayerWinsFunc() {
-  winner = 'second';
-  count = 0;
-  secondPlayerWins.textContent = `Второй игрок(O): ${player2}`;
-  document.getElementById("modal").style.opacity = "1";
-  h1result.innerHTML = ('😎В этой жестокой схватке победил игрок №2(O)!');
-  document.getElementById("canvas").style.opacity = "0.5";
-}
-
-// Button New Round
-buttonNewRound.addEventListener('click', () => {
-  document.getElementById("canvas").style.opacity = "1";
-  ctx.clearRect(0, 0, 320, 320);
-  canvasCascade();
-  board = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-  ];
-  currentPlayer = 0;
-  count = 0;
-  gameStopper = false;
-}) ;
-// Button Reset
-buttonReset.addEventListener('click', () => {
-  document.getElementById("canvas").style.opacity = "1";
-  ctx.clearRect(0, 0, 320, 320);
-  canvasCascade();
-  board = [
-    ['', '', ''],
-    ['', '', ''],
-    ['', '', '']
-  ];
-  currentPlayer = 0;
-  count = 0;
-  winner = 'first';
-  gameStopper = false;
-  player1 = 0;
-  player2 = 0;
-  motion.textContent = `Ходит первый игрок - ${playerFirstName}`;
-  firstPlayerWins.textContent = `Первый игрок(X): ${player1}`;
-  secondPlayerWins.textContent = `Второй игрок(O): ${player2}`;
-});
-
-
-
-// X FUNCTIONS
-// Top
-function printTopLeftX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(20, 20);
-  ctx.lineTo(80, 80);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(80, 20);
-  ctx.lineTo(20, 80);
-  ctx.stroke();
-}
-function printTopCenterX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(135, 20);
-  ctx.lineTo(195, 80);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(195, 20);
-  ctx.lineTo(135, 80);
-  ctx.stroke();
-}
-function printTopRightX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(240, 20);
-  ctx.lineTo(300, 80);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(300, 20);
-  ctx.lineTo(240, 80);
-  ctx.stroke();
-}
-// Center
-function printCenterLeftX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(20, 130);
-  ctx.lineTo(85, 200);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(85, 130);
-  ctx.lineTo(20, 200);
-  ctx.stroke();
-}
-function printCenterCenterX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(130, 130);
-  ctx.lineTo(200, 200);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(200, 130);
-  ctx.lineTo(130, 200);
-  ctx.stroke();
-}
-function printCenterRightX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(240, 130);
-  ctx.lineTo(310, 200);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(310, 130);
-  ctx.lineTo(240, 200);
-  ctx.stroke();
-}
-// Bottom
-function printBottomLeftX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(20, 240);
-  ctx.lineTo(80, 310);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(80, 240);
-  ctx.lineTo(20, 310);
-  ctx.stroke();
-}
-function printBottomCenterX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(130, 240);
-  ctx.lineTo(200, 310);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(200, 240);
-  ctx.lineTo(130, 310);
-  ctx.stroke();
-}
-function printBottomRightX() {
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(240, 240);
-  ctx.lineTo(310, 310);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.strokeStyle = 'black';
-  ctx.moveTo(310, 240);
-  ctx.lineTo(240, 310);
-  ctx.stroke();
-}
-
-// O FUNCTIONS
-// Top
-function printTopLeftO() {
-  ctx.beginPath();
-  ctx.arc(55, 55, 40, 0, 360);  
-  ctx.stroke();
-}
-function printTopCenterO() {
-  ctx.beginPath();
-  ctx.arc(165, 55, 40, 0, 360);
-  ctx.stroke();
-}
-function printTopRightO() {
-  ctx.beginPath();
-  ctx.arc(275, 55, 40, 0, 360);
-  ctx.stroke();
-}
-// Center
-function printCenterLeftO() {
-  ctx.beginPath();
-  ctx.arc(55, 165, 40, 0, 360);
-  ctx.stroke();
-}
-function printCenterCenterO() {
-  ctx.beginPath();
-  ctx.arc(165, 165, 40, 0, 360);
-  ctx.stroke();
-}
-function printCenterRightO() {
-  ctx.beginPath();
-  ctx.arc(275, 165, 40, 0, 360);
-  ctx.stroke();
-}
-// Bottom
-function printBottomLeftO() {
-  ctx.beginPath();
-  ctx.arc(55, 275, 40, 0, 360);
-  ctx.stroke();
-}
-function printBottomCenterO() {
-  ctx.beginPath();
-  ctx.arc(165, 275, 40, 0, 360);
-  ctx.stroke();
-}
-function printBottomRightO() {
-  ctx.beginPath();
-  ctx.arc(275, 275, 40, 0, 360);
-  ctx.stroke();
-}
+canvas.addEventListener('click', game);

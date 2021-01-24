@@ -41,7 +41,7 @@ header p {
   justify-content: space-evenly;
   font-family: 'Noto Serif', serif;
 }
-.lead {
+.turn {
   text-align: center;
   font-size: 35px;
   color: #BF212E;
@@ -52,7 +52,7 @@ header p {
   display: flex;
   justify-content: space-evenly;
 }
-button {
+.btn {
   width:160px;
   height: 30px;
   background-color:#16558C;
@@ -97,7 +97,7 @@ button:focus {
 }
 canvas {
   margin:0 auto 10px auto;
-  width:330px;
+  width:600px;
 
 }
 
